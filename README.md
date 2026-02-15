@@ -59,8 +59,8 @@ Editar el archivo `src/backend/ClinicaAPI/appsettings.json` con las credenciales
 Abrí la **Package Manager Console** en Visual Studio y ejecutá:
 
 ```bash
-Add-Migration InitialCreate
-Update-Database
+add-migration initial_setup
+update-database
 ```
 
 ### 3. Correr la API
@@ -83,7 +83,7 @@ npm install
 Revisá que el puerto en los servicios coincida con el de tu API:
 
 ```typescript
-// src/app/core/services/paciente.service.ts
+// src/app/core/services/patient.service.ts
 private apiUrl = 'https://localhost:7000/api/pacientes';
 ```
 
