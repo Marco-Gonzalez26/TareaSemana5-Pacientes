@@ -1,0 +1,104 @@
+<div class="p-6 max-w-2xl mx-auto">
+  <div class="flex items-center gap-4 mb-6">
+    <a
+      [routerLink]="['/pacientes', patientId(), 'historias']"
+      class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition"
+    >
+      <lucide-icon [img]="ArrowLeft" class="w-5 h-5"></lucide-icon>
+    </a>
+    <div>
+      <h1 class="text-2xl font-bold text-gray-800">Nueva Historia Clínica</h1>
+      @if (patient()) {
+        <p class="text-sm text-gray-500 mt-1">{{ patient()!.nombre }} {{ patient()!.apellido }}</p>
+      }
+    </div>
+  </div>
+
+  @if (error()) {
+    <div class="bg-red-100 text-red-700 px-4 py-3 rounded-lg mb-4">
+      {{ error() }}
+    </div>
+  }
+
+  <div class="bg-white rounded-xl shadow p-6">
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">
+          Fecha de Consulta <span class="text-red-500">*</span>
+        </label>
+        <input
+          formControlName="fechaConsulta"
+          type="date"
+          class="w-full border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 transition"
+          [class.border-red-400]="isFieldInvalid('fechaConsulta')"
+          [class.border-gray-300]="!isFieldInvalid('fechaConsulta')"
+        />
+        @if (isFieldInvalid('fechaConsulta')) {
+          <p class="text-red-500 text-xs mt-1">La fecha de consulta es obligatoria</p>
+        }
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">
+          Diagnóstico <span class="text-red-500">*</span>
+        </label>
+        <textarea
+          formControlName="diagnostico"
+          rows="3"
+          placeholder="Describe el diagnóstico del paciente"
+          class="w-full border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 transition resize-none"
+          [class.border-red-400]="isFieldInvalid('diagnostico')"
+          [class.border-gray-300]="!isFieldInvalid('diagnostico')"
+        >
+        </textarea>
+        @if (isFieldInvalid('diagnostico')) {
+          <p class="text-red-500 text-xs mt-1">El diagnóstico es obligatorio</p>
+        }
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Tratamiento</label>
+        <textarea
+          formControlName="tratamiento"
+          rows="3"
+          placeholder="Describe el tratamiento indicado"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 transition resize-none"
+        >
+        </textarea>
+      </div>
+
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Observaciones</label>
+        <textarea
+          formControlName="observaciones"
+          rows="4"
+          placeholder="Agrega observaciones adicionales"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 transition resize-none"
+        >
+        </textarea>
+      </div>
+
+      <div class="flex justify-end gap-3">
+        <a
+          [routerLink]="['/pacientes', patientId(), 'historias']"
+          class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition text-sm"
+        >
+          Cancelar
+        </a>
+        <button
+          type="submit"
+          [disabled]="loading()"
+          class="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          @if (loading()) {
+            <lucide-icon [img]="Loader" class="w-4 h-4 animate-spin"></lucide-icon>
+            Guardando...
+          } @else {
+            <lucide-icon [img]="Save" class="w-4 h-4"></lucide-icon>
+            Guardar
+          }
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

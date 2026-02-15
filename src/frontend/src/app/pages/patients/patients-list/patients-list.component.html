@@ -1,0 +1,88 @@
+<div class="p-6">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold text-neutral-800">Pacientes</h1>
+    <a
+      routerLink="/pacientes/nuevo"
+      class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+    >
+      <lucide-icon [img]="Plus" class="w-4 h-4"></lucide-icon>
+      Nuevo Paciente
+    </a>
+  </div>
+
+  @if (error()) {
+    <div class="bg-red-100 text-red-700 px-4 py-3 rounded mb-4">
+      {{ error() }}
+    </div>
+  }
+
+  @if (loading()) {
+    <div class="text-center py-10 text-neutral-500">Cargando...</div>
+  }
+
+  @if (!loading()) {
+    <div class="bg-white rounded-xl shadow overflow-hidden">
+      <table class="w-full text-sm text-left">
+        <thead class="bg-neutral-50 text-neutral-600 uppercase text-xs">
+          <tr>
+            <th class="px-6 py-3">Nombre</th>
+            <th class="px-6 py-3">Apellido</th>
+            <th class="px-6 py-3">Cédula</th>
+            <th class="px-6 py-3">Teléfono</th>
+            <th class="px-6 py-3">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-neutral-100">
+          @for (patient of patients(); track patient.id) {
+            <tr class="hover:bg-neutral-50 transition">
+              <td class="px-6 py-4 font-medium text-neutral-800">{{ patient.nombre }}</td>
+              <td class="px-6 py-4 text-neutral-600">{{ patient.apellido }}</td>
+              <td class="px-6 py-4 text-neutral-600">{{ patient.cedula || '-' }}</td>
+              <td class="px-6 py-4 text-neutral-600">{{ patient.telefono || '-' }}</td>
+              <td class="px-6 py-4">
+                <div class="flex gap-2">
+                  <a
+                    [routerLink]="['/pacientes', patient.id, 'historias']"
+                    class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition"
+                  >
+                    <lucide-icon [img]="Eye" class="w-4 h-4"></lucide-icon>
+                  </a>
+                  <a
+                    [routerLink]="['/pacientes/editar', patient.id]"
+                    class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition"
+                  >
+                    <lucide-icon [img]="Pencil" class="w-4 h-4"></lucide-icon>
+                  </a>
+                  <button
+                    (click)="openModal(patient.id!)"
+                    class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition"
+                  >
+                    <lucide-icon [img]="Trash2" class="w-4 h-4"></lucide-icon>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="6" class="px-6 py-10 text-center text-neutral-400">
+                <div class="flex flex-col items-center gap-2">
+                  <lucide-icon [img]="Inbox" class="w-10 h-10 text-neutral-300"></lucide-icon>
+                  <span class="text-sm">No hay pacientes registrados</span>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>
+
+<app-confirm-modal
+  [visible]="modalVisible()"
+  title="Eliminar paciente"
+  message="¿Estás seguro de que deseas eliminar este paciente? También se eliminarán sus historias clínicas."
+  (confirmed)="confirmDelete()"
+  (canceled)="closeModal()"
+>
+</app-confirm-modal>

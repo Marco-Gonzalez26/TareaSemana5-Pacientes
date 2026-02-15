@@ -103,5 +103,16 @@ namespace PacientesAPI.Controllers
         {
             return _context.HistoriasClinicas.Any(e => e.Id == id);
         }
+
+
+        // GET: api/HistoriasClinicas/paciente/5
+        [HttpGet("paciente/{pacienteId}")]
+        public async Task<ActionResult<IEnumerable<HistoriaClinica>>> GetByPaciente(int pacienteId)
+        {
+            return await _context.HistoriasClinicas
+                .Where(h => h.PacienteId == pacienteId)
+                .ToListAsync();
+        }
     }
+
 }
