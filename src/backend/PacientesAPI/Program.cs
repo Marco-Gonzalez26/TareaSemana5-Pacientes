@@ -22,8 +22,24 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
-var app = builder.Build();
 
+var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ApiDbContext>();
+    context.Database.EnsureCreated();
+
+    if (!context.Usuarios.Any())
+    {
+        context.Usuarios.Add(new Usuario
+        {
+            Nombre = "Admin",
+            Email = "admin@gmail.com",
+            Contrasenia = BCrypt.Net.BCrypt.HashPassword("admin1234")
+        });
+        context.SaveChanges();
+    }
+}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

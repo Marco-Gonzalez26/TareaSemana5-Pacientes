@@ -25,7 +25,7 @@ export class PatientFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private patientSercive: PatientService,
+    private patientService: PatientService,
     private router: Router,
     private route: ActivatedRoute,
   ) {}
@@ -50,7 +50,7 @@ export class PatientFormComponent implements OnInit {
 
   loadPatient(id: number): void {
     this.loading.set(true);
-    this.patientSercive.getById(id).subscribe({
+    this.patientService.getById(id).subscribe({
       next: (patient) => {
         this.form.patchValue({
           nombre: patient.nombre,
@@ -85,7 +85,7 @@ export class PatientFormComponent implements OnInit {
     if (this.isEditing()) {
       console.log({ id: this.patientId()! });
       console.log({ patient });
-      this.patientSercive.update(this.patientId()!, patient).subscribe({
+      this.patientService.update(this.patientId()!, patient).subscribe({
         next: () => this.router.navigate(['/pacientes']),
         error: () => {
           this.error.set('Error al actualizar el paciente');
@@ -93,7 +93,7 @@ export class PatientFormComponent implements OnInit {
         },
       });
     } else {
-      this.patientSercive.create(patient).subscribe({
+      this.patientService.create(patient).subscribe({
         next: () => this.router.navigate(['/pacientes']),
         error: () => {
           this.error.set('Error al crear el paciente');

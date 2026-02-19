@@ -11,8 +11,8 @@ export class ClinicHistoryService {
 
   constructor(private http: HttpClient) {}
 
-  getByPaciente(pacienteId: number): Observable<ClinicHistory[]> {
-    return this.http.get<ClinicHistory[]>(`${this.apiUrl}/paciente/${pacienteId}`);
+  getByPatient(patientId: number): Observable<ClinicHistory[]> {
+    return this.http.get<ClinicHistory[]>(`${this.apiUrl}/paciente/${patientId}`);
   }
 
   create(clinicHistory: ClinicHistory): Observable<ClinicHistory> {

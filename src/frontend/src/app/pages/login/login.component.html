@@ -1,0 +1,167 @@
+<div class="flex items-center justify-center">
+  <div class="bg-white p-8 rounded-2xl shadow-lg shadow-blue-200 w-full max-w-md">
+    <h4 class="text-2xl font-bold text-center mb-6 text-neutral-800">Bienvenido</h4>
+
+    <div class="flex mb-6 border-b border-neutral-200">
+      <button
+        (click)="activeTab.set('login')"
+        class="flex-1 pb-2 text-sm font-semibold transition-colors duration-200"
+        [class.text-blue-600]="activeTab() === 'login'"
+        [class.border-b-2]="activeTab() === 'login'"
+        [class.border-blue-600]="activeTab() === 'login'"
+        [class.text-neutral-400]="activeTab() !== 'login'"
+      >
+        Iniciar Sesión
+      </button>
+      <button
+        (click)="activeTab.set('register')"
+        class="flex-1 pb-2 text-sm font-semibold transition-colors duration-200"
+        [class.text-blue-600]="activeTab() === 'register'"
+        [class.border-b-2]="activeTab() === 'register'"
+        [class.border-blue-600]="activeTab() === 'register'"
+        [class.text-neutral-400]="activeTab() !== 'register'"
+      >
+        Registrarse
+      </button>
+    </div>
+
+    @if (activeTab() === 'login') {
+      @if (loginError()) {
+        <div class="bg-red-100 text-red-700 px-4 py-2 rounded-lg mb-4 text-sm">
+          {{ loginError() }}
+        </div>
+      }
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-neutral-700 mb-1">Email</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-3 flex items-center text-neutral-400">
+            <lucide-icon [img]="Mail" size="16"></lucide-icon>
+          </span>
+          <input
+            type="email"
+            [value]="email()"
+            (input)="email.set($any($event.target).value)"
+            placeholder="tucorreo@gmail.com"
+            class="w-full border border-neutral-300 rounded-lg pl-10 pr-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-neutral-700 mb-1">Contraseña</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-3 flex items-center text-neutral-400">
+            <lucide-icon [img]="Lock" size="16"></lucide-icon>
+          </span>
+          <input
+            type="password"
+            [value]="password()"
+            (input)="password.set($any($event.target).value)"
+            placeholder="••••••••"
+            class="w-full border border-neutral-300 rounded-lg pl-10 pr-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+      </div>
+
+      <button
+        (click)="login()"
+        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition duration-200 flex items-center justify-center gap-2"
+      >
+        <lucide-icon [img]="LogIn" size="18"></lucide-icon>
+        Iniciar Sesión
+      </button>
+
+      <div class="mt-4 p-3 bg-gray-50 rounded-lg border text-xs text-neutral-500">
+        <p class="font-semibold mb-1">Credenciales de prueba:</p>
+        <p>Email: <span class="text-blue-600">admin@gmail.com</span></p>
+        <p>Contraseña: <span class="text-blue-600">admin1234</span></p>
+      </div>
+    }
+
+    @if (activeTab() === 'register') {
+      @if (registerError()) {
+        <div class="bg-red-100 text-red-700 px-4 py-2 rounded-lg mb-4 text-sm">
+          {{ registerError() }}
+        </div>
+      }
+      @if (registerSuccess()) {
+        <div class="bg-green-100 text-green-700 px-4 py-2 rounded-lg mb-4 text-sm">
+          {{ registerSuccess() }}
+        </div>
+      }
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-neutral-700 mb-1">Nombre</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-3 flex items-center text-neutral-400">
+            <lucide-icon [img]="User" size="16"></lucide-icon>
+          </span>
+          <input
+            type="text"
+            [value]="signupUserName()"
+            (input)="signupUserName.set($any($event.target).value)"
+            placeholder="Tu nombre"
+            class="w-full border border-neutral-300 rounded-lg pl-10 pr-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-neutral-700 mb-1">Email</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-3 flex items-center text-neutral-400">
+            <lucide-icon [img]="Mail" size="16"></lucide-icon>
+          </span>
+          <input
+            type="email"
+            [value]="regEmail()"
+            (input)="regEmail.set($any($event.target).value)"
+            placeholder="tucorreo@gmail.com"
+            class="w-full border border-neutral-300 rounded-lg pl-10 pr-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-neutral-700 mb-1">Contraseña</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-3 flex items-center text-neutral-400">
+            <lucide-icon [img]="Lock" size="16"></lucide-icon>
+          </span>
+          <input
+            type="password"
+            [value]="regPassword()"
+            (input)="regPassword.set($any($event.target).value)"
+            placeholder="••••••••"
+            class="w-full border border-neutral-300 rounded-lg pl-10 pr-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-neutral-700 mb-1">Confirmar Contraseña</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-3 flex items-center text-neutral-400">
+            <lucide-icon [img]="Lock" size="16"></lucide-icon>
+          </span>
+          <input
+            type="password"
+            [value]="confirmPassword()"
+            (input)="confirmPassword.set($any($event.target).value)"
+            placeholder="••••••••"
+            class="w-full border border-neutral-300 rounded-lg pl-10 pr-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+      </div>
+
+      <button
+        (click)="signUp()"
+        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition duration-200 flex items-center justify-center gap-2"
+      >
+        <lucide-icon [img]="UserPlus" size="18"></lucide-icon>
+        Registrarse
+      </button>
+    }
+  </div>
+</div>

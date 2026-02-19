@@ -1,8 +1,14 @@
-# Medicore - Tarea Semana 5 Marco Gonzalez
+# Medicore - Tarea Semana 6 Marco Gonzalez
 
 Sistema de gestión de pacientes e historias clínicas desarrollado con **Angular 19** y **.NET 8**.
 
 ---
+
+## Tarea Semana 5
+Si quiere ver la tarea de la semana 5 puede hacer un 
+```bash
+git checkout 82ba46abdd09420520c23813cb721c6c61c88077
+```
 
 ## Tecnologías
 

@@ -51,7 +51,7 @@ export class HistoriesListComponent implements OnInit {
 
   loadClinicHistories(id: number): void {
     this.loading.set(true);
-    this.clinicHistoryService.getByPaciente(id).subscribe({
+    this.clinicHistoryService.getByPatient(id).subscribe({
       next: (data) => {
         this.clinicHistories.set(data);
         this.loading.set(false);
