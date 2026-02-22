@@ -25,8 +25,8 @@ export class LoginComponent {
   loginError = signal('');
 
   signupUserName = signal('');
-  regEmail = signal('');
-  regPassword = signal('');
+  registerEmail = signal('');
+  registerPassword = signal('');
   confirmPassword = signal('');
   registerError = signal('');
   registerSuccess = signal('');
@@ -40,7 +40,6 @@ export class LoginComponent {
     this.loginError.set('');
     this.auth.login(this.email(), this.password()).subscribe({
       next: (res: LoginResponse) => {
-        console.log(res);
         this.auth.saveSession(res.usuario.nombre);
         this.router.navigate(['/pacientes']);
       },
@@ -54,23 +53,25 @@ export class LoginComponent {
     this.registerError.set('');
     this.registerSuccess.set('');
 
-    if (this.regPassword() !== this.confirmPassword()) {
+    if (this.registerPassword() !== this.confirmPassword()) {
       this.registerError.set('Las contraseñas no coinciden');
       return;
     }
 
-    this.auth.signUp(this.signupUserName(), this.regEmail(), this.regPassword()).subscribe({
-      next: () => {
-        this.registerSuccess.set('Usuario registrado correctamente');
-        this.signupUserName.set('');
-        this.regEmail.set('');
-        this.regPassword.set('');
-        this.confirmPassword.set('');
-        setTimeout(() => this.activeTab.set('login'), 1500);
-      },
-      error: (err) => {
-        this.registerError.set(err.error?.mensaje || 'Error al registrarse');
-      },
-    });
+    this.auth
+      .signUp(this.signupUserName(), this.registerEmail(), this.registerPassword())
+      .subscribe({
+        next: () => {
+          this.registerSuccess.set('Usuario registrado correctamente');
+          this.signupUserName.set('');
+          this.registerEmail.set('');
+          this.registerPassword.set('');
+          this.confirmPassword.set('');
+          setTimeout(() => this.activeTab.set('login'), 1500);
+        },
+        error: (err) => {
+          this.registerError.set(err.error?.mensaje || 'Error al registrarse');
+        },
+      });
   }
 }

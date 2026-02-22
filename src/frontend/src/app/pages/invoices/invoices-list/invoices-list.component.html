@@ -1,0 +1,73 @@
+<div class="max-w-6xl mx-auto px-6 py-8">
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-2xl font-bold text-neutral-800">Facturas</h2>
+    <div class="flex items-center gap-2">
+      <button
+        (click)="generatePDF()"
+        class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition duration-200"
+      >
+        <lucide-icon [img]="FileText" size="16"></lucide-icon>
+        Exportar PDF
+      </button>
+      <button
+        (click)="new()"
+        class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition duration-200"
+      >
+        <lucide-icon [img]="Plus" size="16"></lucide-icon>
+        Nueva Factura
+      </button>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-2xl shadow-sm border border-neutral-100 overflow-hidden">
+    <table class="w-full text-sm">
+      <thead class="bg-neutral-50 text-neutral-500 uppercase text-xs">
+        <tr>
+          <th class="px-6 py-3 text-left">#</th>
+          <th class="px-6 py-3 text-left">Paciente</th>
+          <th class="px-6 py-3 text-left">Descripción</th>
+          <th class="px-6 py-3 text-left">Fecha</th>
+          <th class="px-6 py-3 text-left">Total</th>
+          <th class="px-6 py-3 text-left">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-neutral-100">
+        @for (factura of invoices(); track factura.id) {
+          <tr class="hover:bg-neutral-50 transition">
+            <td class="px-6 py-4 text-neutral-400">{{ factura.id }}</td>
+            <td class="px-6 py-4 font-medium text-neutral-800">
+              {{ factura.paciente?.nombre }} {{ factura.paciente?.apellido }}
+            </td>
+            <td class="px-6 py-4 text-neutral-600">{{ factura.descripcion }}</td>
+            <td class="px-6 py-4 text-neutral-600">{{ factura.fecha | date: 'dd/MM/yyyy' }}</td>
+            <td class="px-6 py-4 font-semibold text-blue-600">${{ factura.total }}</td>
+            <td class="px-6 py-4">
+              <div class="flex items-center gap-3">
+                <button
+                  (click)="edit(factura.id)"
+                  class="text-neutral-400 hover:text-blue-600 transition"
+                >
+                  <lucide-icon [img]="Pencil" size="16"></lucide-icon>
+                </button>
+                <button
+                  (click)="confirmDelete(factura.id)"
+                  class="text-neutral-400 hover:text-red-500 transition"
+                >
+                  <lucide-icon [img]="Trash2" size="16"></lucide-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+<app-confirm-modal
+  [visible]="modalVisible()"
+  title="¿Eliminar factura?"
+  message="Esta acción no se puede deshacer."
+  (confirmed)="delete()"
+  (canceled)="cancel()"
+>
+</app-confirm-modal>

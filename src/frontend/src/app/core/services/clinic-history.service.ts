@@ -15,8 +15,8 @@ export class ClinicHistoryService {
     return this.http.get<ClinicHistory[]>(`${this.apiUrl}/paciente/${patientId}`);
   }
 
-  create(clinicHistory: ClinicHistory): Observable<ClinicHistory> {
-    return this.http.post<ClinicHistory>(this.apiUrl, clinicHistory);
+  create(history: ClinicHistory): Observable<ClinicHistory> {
+    return this.http.post<ClinicHistory>(this.apiUrl, history);
   }
 
   delete(id: number): Observable<void> {

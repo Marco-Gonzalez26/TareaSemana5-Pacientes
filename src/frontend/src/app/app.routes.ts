@@ -52,6 +52,30 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'facturas',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/invoices/invoices-list/invoices-list.component').then(
+        (m) => m.InvoicesListComponent,
+      ),
+  },
+  {
+    path: 'facturas/nueva',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/invoices/invoices-form/invoices-form.component').then(
+        (m) => m.InvoicesFormComponent,
+      ),
+  },
+  {
+    path: 'facturas/editar/:id',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/invoices/invoices-form/invoices-form.component').then(
+        (m) => m.InvoicesFormComponent,
+      ),
+  },
+  {
     path: '**',
     redirectTo: 'login',
   },

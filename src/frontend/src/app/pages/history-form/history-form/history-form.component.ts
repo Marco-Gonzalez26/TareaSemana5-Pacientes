@@ -70,8 +70,8 @@ export class HistoryFormComponent implements OnInit {
     });
   }
 
-  isFieldInvalid(campo: string): boolean {
-    const control = this.form.get(campo);
+  isFieldInvalid(field: string): boolean {
+    const control = this.form.get(field);
     return !!(control?.invalid && control?.touched);
   }
 }

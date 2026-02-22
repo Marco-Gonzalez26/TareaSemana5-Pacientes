@@ -83,8 +83,6 @@ export class PatientFormComponent implements OnInit {
     this.loading.set(true);
 
     if (this.isEditing()) {
-      console.log({ id: this.patientId()! });
-      console.log({ patient });
       this.patientService.update(this.patientId()!, patient).subscribe({
         next: () => this.router.navigate(['/pacientes']),
         error: () => {
@@ -103,8 +101,8 @@ export class PatientFormComponent implements OnInit {
     }
   }
 
-  isFieldInvalid(campo: string): boolean {
-    const control = this.form.get(campo);
+  isFieldInvalid(field: string): boolean {
+    const control = this.form.get(field);
     return !!(control?.invalid && control?.touched);
   }
 }

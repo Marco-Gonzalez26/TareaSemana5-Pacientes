@@ -10,5 +10,7 @@ namespace PacientesAPI.Models
         public DbSet<Paciente> Pacientes { get; set; }
         public DbSet<HistoriaClinica> HistoriasClinicas { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+
+        public DbSet<Factura> Facturas { get; set; }
     }
 }

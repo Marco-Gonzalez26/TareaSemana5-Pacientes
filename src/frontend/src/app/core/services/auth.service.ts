@@ -29,7 +29,7 @@ export class AuthService {
     return this.userName();
   }
 
-  logout() {
+  logOut() {
     localStorage.removeItem('userName');
     this.userName.set('');
   }
