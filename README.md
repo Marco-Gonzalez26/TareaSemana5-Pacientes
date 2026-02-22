@@ -5,9 +5,15 @@ Sistema de gestión de pacientes e historias clínicas desarrollado con **Angula
 ---
 
 ## Tarea Semana 5
-Si quiere ver la tarea de la semana 5 puede hacer un 
+Si quiere ver la tarea de la semana 5 puede hacer un checkout al commit de la tarea
 ```bash
 git checkout 82ba46abdd09420520c23813cb721c6c61c88077
+```
+
+## Tarea Semana 6 
+Si quiere ver la tarea de la semana 6 puede hacer un checkout al commit de la tarea
+```bash
+git checkout 4615a075755797f9c84e187f5214c7f7fd1470c4
 ```
 
 ## Tecnologías
