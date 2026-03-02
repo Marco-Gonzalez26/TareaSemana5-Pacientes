@@ -1,6 +1,6 @@
-# Medicore - Tarea Semana 6 Marco Gonzalez
+# Medicore - Tarea Semana 8 Marco Gonzalez
 
-Sistema de gestión de pacientes e historias clínicas desarrollado con **Angular 19** y **.NET 8**.
+Sistema de gestión de pacientes e historias clínicas desarrollado con **Angular 21** y **.NET 8**. Le envio esta tarea ya que tiene casi todo lo que hemos revisado a lo largo de los parciales 
 
 ---
 
@@ -15,6 +15,13 @@ Si quiere ver la tarea de la semana 6 puede hacer un checkout al commit de la ta
 ```bash
 git checkout 4615a075755797f9c84e187f5214c7f7fd1470c4
 ```
+
+## Tarea Semana 7
+Si quiere ver la tarea de la semana 6 puede hacer un checkout al commit de la tarea
+```bash
+git checkout 731c06e1470e6b702174b65af90f076c6b18f62c
+```
+
 
 ## Tecnologías
 
